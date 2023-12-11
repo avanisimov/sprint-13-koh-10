@@ -52,6 +52,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:background="?attr/selectableItemBackground"
                     android:text="-" />
 
                 <TextView
@@ -67,6 +68,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:background="?attr/selectableItemBackground"
                     android:text="+" />
 
             </LinearLayout>
