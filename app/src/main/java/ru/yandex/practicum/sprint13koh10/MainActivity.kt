@@ -7,11 +7,14 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.badge.BadgeDrawable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.yandex.practicum.sprint13koh10.databinding.ActivityMainBinding
+import java.text.DecimalFormat
 import java.util.UUID
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,12 +27,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     // UI
+    val moneyFormatter = DecimalFormat().apply {
+        minimumFractionDigits = 2
+        val symbols = decimalFormatSymbols
+        symbols.decimalSeparator = ','
+        decimalFormatSymbols = symbols
+    }
     private lateinit var binding: ActivityMainBinding
     private val catalogItemsAdapter: CatalogItemsAdapter by lazy {
-        CatalogItemsAdapter()
+        CatalogItemsAdapter(moneyFormatter)
     }
     private val cartItemsAdapter: CartItemsAdapter by lazy {
-        CartItemsAdapter()
+        CartItemsAdapter(moneyFormatter)
     }
 
     // Logic
@@ -106,6 +115,8 @@ class MainActivity : AppCompatActivity() {
                         it
                     }
                 }
+                val badge: BadgeDrawable = binding.bottomNavigation.getOrCreateBadge(R.id.cart)
+                badge.number = cartItems.size
                 catalogItemsAdapter.setItems(catalogItems)
             }
             onAddCountClickListener = OnAddCountClickListener { item ->
@@ -181,6 +192,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeCurrentScreenMode(newScreenMode: ScreenMode) {
         if (newScreenMode != currentScreenMode) {
+            binding.toolbar.setTitle(newScreenMode.titleResId)
             when (newScreenMode) {
                 ScreenMode.CATALOG -> {
                     binding.catalogContainer.visibility = View.VISIBLE

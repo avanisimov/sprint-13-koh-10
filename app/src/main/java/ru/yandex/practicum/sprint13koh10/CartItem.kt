@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.yandex.practicum.sprint13koh10.databinding.VCartItemBinding
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
 
 data class CartItem(
     val id: String,
@@ -18,6 +21,7 @@ data class CartItem(
 
 class CartItemViewHolder(
     parent: ViewGroup,
+    private val moneyFormatter: DecimalFormat,
     val binding: VCartItemBinding = VCartItemBinding.inflate(
         LayoutInflater.from(
             parent.context
@@ -36,6 +40,9 @@ class CartItemViewHolder(
             .into(binding.image)
         binding.title.text = item.catalogItem.name
 
+        val price = moneyFormatter.format(item.sum/100f)
+
+        binding.summa.text = price
         binding.count.text = item.count.toString()
     }
 
