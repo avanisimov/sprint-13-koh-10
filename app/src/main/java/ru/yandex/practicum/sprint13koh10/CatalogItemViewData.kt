@@ -36,7 +36,9 @@ class CatalogItemViewHolder(
             .into(binding.image)
         binding.title.text = viewData.item.name
         val price = moneyFormatter.format(viewData.item.price / 100f)
-        binding.price.text = "$price/${viewData.item.unit}"
+        binding.price.text = binding.root.context.getString(
+            R.string.rubles, price, viewData.item.unit
+        )
 
         if (viewData.count != null) {
             binding.addToCart.visibility = View.GONE
