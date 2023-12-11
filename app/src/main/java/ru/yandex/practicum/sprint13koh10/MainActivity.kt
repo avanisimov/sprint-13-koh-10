@@ -7,11 +7,13 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.badge.BadgeDrawable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.yandex.practicum.sprint13koh10.databinding.ActivityMainBinding
 import java.util.UUID
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -106,6 +108,8 @@ class MainActivity : AppCompatActivity() {
                         it
                     }
                 }
+                val badge: BadgeDrawable = binding.bottomNavigation.getOrCreateBadge(R.id.cart)
+                badge.number = cartItems.size
                 catalogItemsAdapter.setItems(catalogItems)
             }
             onAddCountClickListener = OnAddCountClickListener { item ->
