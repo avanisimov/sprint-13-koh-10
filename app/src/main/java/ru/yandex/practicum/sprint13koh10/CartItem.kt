@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.yandex.practicum.sprint13koh10.databinding.VCartItemBinding
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
 
 data class CartItem(
     val id: String,
@@ -36,6 +39,16 @@ class CartItemViewHolder(
             .into(binding.image)
         binding.title.text = item.catalogItem.name
 
+
+        val nf = NumberFormat.getCurrencyInstance()
+        val decimalFormatSymbols: DecimalFormatSymbols =
+            (nf as DecimalFormat).getDecimalFormatSymbols()
+        decimalFormatSymbols.setCurrencySymbol("")
+        decimalFormatSymbols.decimalSeparator = ','
+        (nf as DecimalFormat).setDecimalFormatSymbols(decimalFormatSymbols)
+        val price = nf.format(item.sum/100f)
+
+        binding.summa.text = price
         binding.count.text = item.count.toString()
     }
 
