@@ -21,6 +21,7 @@ data class CartItem(
 
 class CartItemViewHolder(
     parent: ViewGroup,
+    private val moneyFormatter: DecimalFormat,
     val binding: VCartItemBinding = VCartItemBinding.inflate(
         LayoutInflater.from(
             parent.context
@@ -39,14 +40,7 @@ class CartItemViewHolder(
             .into(binding.image)
         binding.title.text = item.catalogItem.name
 
-
-        val nf = NumberFormat.getCurrencyInstance()
-        val decimalFormatSymbols: DecimalFormatSymbols =
-            (nf as DecimalFormat).getDecimalFormatSymbols()
-        decimalFormatSymbols.setCurrencySymbol("")
-        decimalFormatSymbols.decimalSeparator = ','
-        (nf as DecimalFormat).setDecimalFormatSymbols(decimalFormatSymbols)
-        val price = nf.format(item.sum/100f)
+        val price = moneyFormatter.format(item.sum/100f)
 
         binding.summa.text = price
         binding.count.text = item.count.toString()

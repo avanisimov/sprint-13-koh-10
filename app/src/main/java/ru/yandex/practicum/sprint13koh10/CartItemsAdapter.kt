@@ -3,8 +3,11 @@ package ru.yandex.practicum.sprint13koh10
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import java.text.DecimalFormat
 
-class CartItemsAdapter : RecyclerView.Adapter<CartItemViewHolder>() {
+class CartItemsAdapter(
+    private val moneyFormatter: DecimalFormat
+) : RecyclerView.Adapter<CartItemViewHolder>() {
 
     private var items: List<CartItem> = emptyList()
     var onAddCountClickListener: OnCartAddCountClickListener = OnCartAddCountClickListener {}
@@ -36,7 +39,7 @@ class CartItemsAdapter : RecyclerView.Adapter<CartItemViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemViewHolder {
-        return CartItemViewHolder(parent)
+        return CartItemViewHolder(parent, moneyFormatter)
     }
 
     override fun getItemCount(): Int {

@@ -12,6 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.yandex.practicum.sprint13koh10.databinding.ActivityMainBinding
+import java.text.DecimalFormat
 import java.util.UUID
 
 
@@ -26,12 +27,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     // UI
+    val moneyFormatter = DecimalFormat().apply {
+        minimumFractionDigits = 2
+        val symbols = decimalFormatSymbols
+        symbols.decimalSeparator = ','
+        decimalFormatSymbols = symbols
+    }
     private lateinit var binding: ActivityMainBinding
     private val catalogItemsAdapter: CatalogItemsAdapter by lazy {
-        CatalogItemsAdapter()
+        CatalogItemsAdapter(moneyFormatter)
     }
     private val cartItemsAdapter: CartItemsAdapter by lazy {
-        CartItemsAdapter()
+        CartItemsAdapter(moneyFormatter)
     }
 
     // Logic
